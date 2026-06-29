@@ -1,20 +1,66 @@
 const button = document.getElementById("recordButton");
 const status = document.getElementById("status");
-let isListening = false;
 
-button.addEventListener("click", function () {
+let isRecording = false;
+let recorder;
+let audioChunks = [];
+let stream;
 
-    if (isListening === false) {
-        isListening = true;
+button.addEventListener("click", async function () {
 
-        status.textContent = "Listening...";
-        button.textContent = "Stop Listening";
+    if (!isRecording) {
+        isRecording = true;
+
+        status.textContent = "Recording...";
+        button.textContent = "Stop";
+
+        await startRecording();
 
     } else {
-        isListening = false;
+        isRecording = false;
 
-        status.textContent = "Stopped";
-        button.textContent = "Start Listening";
+        status.textContent = "Processing...";
+        button.textContent = "Start Recording";
+
+        stopRecording();
     }
 
 });
+
+
+async function startRecording() {
+
+    // Ask for microphone permission
+    stream = await navigator.mediaDevices.getUserMedia({
+        audio: true
+    });
+
+    recorder = new MediaRecorder(stream);
+
+    audioChunks = [];
+
+    recorder.ondataavailable = (event) => {
+        audioChunks.push(event.data);
+    };
+
+    recorder.onstop = () => {
+
+    const audioBlob = new Blob(audioChunks, {
+        type: "audio/webm"
+    });
+
+    const url = URL.createObjectURL(audioBlob);
+
+    console.log(url);
+
+    const audio = new Audio(url);
+    audio.play();
+    };
+
+    recorder.start();
+}
+
+function stopRecording() {
+    recorder.stop();
+    stream.getTracks().forEach(track => track.stop());
+}
