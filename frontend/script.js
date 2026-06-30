@@ -22,17 +22,20 @@ async function micAcess (params) {
             blob = new Blob(audioChunks, {type: 'webm' }) 
             const url = URL.createObjectURL(blob)
             console.log(url)
+            stream.getTracks().forEach( (track) =>{
+               track.stop()
+            });
         }
         
     } catch (error){
         console.log("Microphone Acess was not given")
     }
 }
-micAcess()
 
 //chaning the button so that when recroding the button informs the user 
-function updateButton (){
+async function updateButton (){
     if(!recording){
+        await micAcess()
         console.log("Audio Recording")
         recordButton.innerText = "Stop Recording"
         recording = true 
