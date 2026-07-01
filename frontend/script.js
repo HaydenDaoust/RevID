@@ -25,6 +25,11 @@ async function micAcess (params) {
             stream.getTracks().forEach( (track) =>{
                track.stop()
             });
+
+            const downloadLink = document.createElement('a')
+            downloadLink.href = url
+            downloadLink.download = 'my-recording.webm'
+            downloadLink.click()
         }
         
     } catch (error){
@@ -35,6 +40,7 @@ async function micAcess (params) {
 //chaning the button so that when recroding the button informs the user 
 async function updateButton (){
     if(!recording){
+        audioChunks = []
         await micAcess()
         console.log("Audio Recording")
         recordButton.innerText = "Stop Recording"
