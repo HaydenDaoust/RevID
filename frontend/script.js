@@ -6,8 +6,8 @@ let audioChunks = []
 let audioInput; 
 let blob;
 
-
-//asking for microphone acess and printing that you need it 
+//Gets microphone access and runs the start and stop of it 
+//turns the audio stream into a file that gets downloaded 
 async function micAcess (params) {
     try{
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -18,18 +18,31 @@ async function micAcess (params) {
             audioChunks.push(event.data)
         }
 
-        audioInput.onstop = (event) => {
+        audioInput.onstop = async (event) => {
             blob = new Blob(audioChunks, {type: 'webm' }) 
             const url = URL.createObjectURL(blob)
             console.log(url)
             stream.getTracks().forEach( (track) =>{
                track.stop()
             });
+            
+            const now = new Date(); 
+            //generate a unique file name for the audio download in order to not rewrite
+            const uniqueName = `recording_${new Date().toISOString().slice(0, 10)}.webm`;
 
+            //creates downloadable link of the audiofile
             const downloadLink = document.createElement('a')
             downloadLink.href = url
-            downloadLink.download = 'my-recording.webm'
+            downloadLink.download = uniqueName 
             downloadLink.click()
+            
+            //create package and send to fastAPI backend
+            const formData = new FormData();
+            formData.append("file", blob, uniqueName);
+            const response = await fetch("http://127.0.0.1:8000/upload-audio", {
+                method : "POST", 
+                body : formData
+            })
         }
         
     } catch (error){

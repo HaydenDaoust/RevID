@@ -1,8 +1,9 @@
-# Instead of: from fastapi import FastAPI -> app = FastAPI()
-from fastapi_offline import FastAPIOffline
+from fastapi import FastAPI, File, UploadFile
+import os
 
-app = FastAPIOffline()
+app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.post("/upload-audio")
+async def upload_audio(file: UploadFile = File(...)):
+    # This is where we will process and save the file
+    return {"filename": file.filename, "status": "success"}
