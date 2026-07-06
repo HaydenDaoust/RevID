@@ -41,8 +41,10 @@ async function micAcess (params) {
             formData.append("file", blob, uniqueName);
             const response = await fetch("http://127.0.0.1:8000/upload-audio", {
                 method : "POST", 
-                body : formData
+                body : formData,
             })
+            const result = await response.json()
+            console.log(result)
         }
         
     } catch (error){
