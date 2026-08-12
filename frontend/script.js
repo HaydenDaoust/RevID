@@ -26,7 +26,6 @@ async function micAcess (params) {
                track.stop()
             });
             
-            const now = new Date(); 
             //generate a unique file name for the audio download in order to not rewrite
             const uniqueName = `recording_${new Date().toISOString().slice(0, 10)}.webm`;
 
