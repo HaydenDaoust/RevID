@@ -1,11 +1,14 @@
-The project is desinged to find faults in cars based on sounds and text input. This is going to start as a website and then be migrated into an app. 
+# RevID
+This is a personal project to design an app that helps identify car problems without going to a mechanic. 
+The project is being written without any code editors or AI-generated code. 
+The project is starting off as a website powered by the Gemini API as version 1 of the project. 
+Eventually using an open source tool like pytourch to make the classification system much higher and then conversion into an app.
 
-Backend --> FastAPI and python 
-Frontend --> javascript, html, css 
-AI api --> Gemini
+WEBBROSER START
+FASTAPI BACKEND --> python 
+FRONTEND WEBSITE --> JavaScript 
+ML MODEL --> Gemini API V1 later PyTouch or other options
 
-TO DO list: 
-bootstrap to improve website desin 
-implmentation of the Gemini API 
-eventual replacement of the Gemini API for pytourch or a diffrent design 
-conversion from website into an app 
+WEBBROUSER V1 
+"A webpage with a "Record" button that captures mic audio using the browser's MediaRecorder API
+That audio gets sent to a FastAPI endpoint and the file gets saved to the computer. 
