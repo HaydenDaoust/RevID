@@ -37,3 +37,18 @@ p {
     text-align: center;
     font-size: medium;
 }
+
+
+#gemini-output {
+    color: white;
+    background-color: #333;
+    border: 2px solid #555;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    width: fit-content;
+    max-width: 600px;
+    min-height: fit-content;
+    display: block;
+    text-align: center;
+}

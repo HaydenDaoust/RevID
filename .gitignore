@@ -216,3 +216,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Saved Audio files
+backend/saved_audio/*
+!backend/saved_audio/.gitkeep
