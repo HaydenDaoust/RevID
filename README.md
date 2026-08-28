@@ -6,9 +6,13 @@ Eventually using an open source tool like pytourch to make the classification sy
 
 WEBBROSER START
 FASTAPI BACKEND --> python 
+
 FRONTEND WEBSITE --> JavaScript 
+
 ML MODEL --> Gemini API V1 later PyTouch or other options
 
 WEBBROUSER V1 
-"A webpage with a "Record" button that captures mic audio using the browser's MediaRecorder API
-That audio gets sent to a FastAPI endpoint and the file gets saved to the computer. 
+This first version has a rough front end that takes in an input from the user by recording using a button, then sends the file. 
+to a FastAPI backend that processes the file using the Gemini API and returns what is going wrong with the car. This version is fairly 
+inaccurate as it relies on Gemini's classification ability. 
+
